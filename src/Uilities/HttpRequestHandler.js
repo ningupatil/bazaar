@@ -2,7 +2,7 @@ import axios from "axios"
 import { Await } from "react-router-dom";
 
 const config = {
-    headers: { Authorization: `Bearer bbd0f9e46f36a4f94558477ffcf414d8d34958e90dea47426636e3eb6a28c9a2` }
+    headers: { Authorization: `Bearer ` }
 };
 export const getAPI =(path) => {
     return new Promise ( (resolve,reject) => {
