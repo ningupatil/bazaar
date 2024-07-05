@@ -26,7 +26,7 @@ function Home() {
         setPromotedProducts(homeData.promotedProducts)
     })
 
-    console.log("---in rednder--- ", homeData)
+    // console.log("---in rednder--- ", homeData)
 
     const onPromotedProductClickChange = (category) => {
         window.location = `/products/?category=${category}`
