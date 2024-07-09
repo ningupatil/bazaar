@@ -8,14 +8,18 @@ import NavigationMenuComponent from "../../../Common/NavigationMenuComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { productActionBinder } from "../Actions/ProductAction";
 import MenuAppBar from "../../Home/Components/AppBarComponent";
+import InfiniteScroll from "react-infinite-scroll-component";
 const Products= () => {
+  const [pageSkip, setPageSkip] = useState(0);
+  const [pageLimit, setPageLimit] = useState(20);
+  const [hasMore, setHasMore] = useState(true)
   const [products, setProducts] = useState([])
     const dispatch = useDispatch();
 
     // const params = useParams();
     const [params] = useSearchParams();
   useEffect(()=>{
-    dispatch(productActionBinder(params.get('category')))
+    dispatch(productActionBinder(params.get('category'), pageSkip, pageLimit))
   },[])
 
   const productData = useSelector((state) => {
@@ -26,14 +30,14 @@ const Products= () => {
   useEffect(() => {
     setProducts(productData.products)
   })
-  // // useEffect(() => {
-  // //   setProucts({
-  // //     ...products, Product: {
-  // //       ...productDetails.Product, 
-  // //       Price: 400000
-  //     }
-  //   })
-  // }, [])
+  const fetchMoreData = () => {
+    console.log('---- paginating ')
+    setPageSkip(pageSkip + pageLimit)
+  }  
+
+  useEffect(()=>{
+    dispatch(productActionBinder(params.get('category'), pageSkip, pageLimit))
+  },[pageSkip])
 
   return (
     <div>
@@ -43,22 +47,33 @@ const Products= () => {
         <Grid item xs={2} md={2} lg={2}>
 
         </Grid>
+        
         <Grid item xs={10} md={8} lg={8}>
-          <Grid container >
-           {productData.Products.map((Product, index) => {
-             return (<Grid item xs={4}  key={`product_details_${index}`} style={{ margin: "10px"}}>
-              <ProductCardComp
-                product={Product}
-              />
-            </Grid>)
-           })}
-           </Grid>
+          <div>
+            <InfiniteScroll
+              dataLength={productData.Products.length}
+              next={fetchMoreData}
+              hasMore={true}
+              loader={<h4>Loading...</h4>}
+            >
+              <Grid container >
+                {productData.Products.map((Product, index) => {
+                  return (<Grid item xs={4} key={`product_details_${index}`} style={{ margin: "10px" }}>
+                    <ProductCardComp
+                      product={Product}
+                    />
+                  </Grid>)
+                })}
+
+              </Grid>
+            </InfiniteScroll>
+          </div>
+         
         </Grid>
         <Grid item xs={2} md={2} lg={2}>
 
         </Grid>
       </Grid>
-      
     </div>
   )
 }

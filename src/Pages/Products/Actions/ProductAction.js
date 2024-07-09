@@ -5,10 +5,12 @@ import { FETCH_PRODUCTS_SUCCESS } from "../Constants/actionTypeConstant"
 
 
 
-export const productActionBinder = (category) => {
+export const productActionBinder = (category, pageSkip, pageLimit) => {
     return((dispatch) => {
-        fetchProductsAPI(category)
+        console.log('---- pageSkip, pageLimit ', pageSkip, pageLimit)
+        fetchProductsAPI(category, pageSkip, pageLimit)
         .then((Products) => {
+            console.log('---- Products length ', Products.length)
             dispatch( {
                 type : FETCH_PRODUCTS_SUCCESS,
                 payload : {Products}

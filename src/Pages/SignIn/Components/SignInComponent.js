@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { signInActionBinder } from "../Actions/SignInAction"
 import { useState } from "react"
 import MenuAppBar from "../../Home/Components/AppBarComponent"
+import { userContext } from "../../../Configures/context"
 
 
 export const SignIn = () => {
@@ -23,6 +24,9 @@ export const SignIn = () => {
     }
     const dispatch = useDispatch()
     
+    // const {setUserDetails} = userContext(userContext)
+    // console.log("---setUserDetails---",setUserDetails)
+
     const onSignInClick =() => {
         let userDetails = {
             userId : userId,

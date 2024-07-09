@@ -10,10 +10,13 @@ export const productReducer = (state=initialState, action) => {
         case FETCH_PRODUCTS_SUCCESS :
             // console.log("---in reducer--- ", action.payload)
             currentState = {...currentState,
-                Products : action.payload.Products
+                Products : currentState.Products.concat(action.payload.Products)
             }
             break;
- 
+        // case FETCH_PRODUCTS_SUCCESS :
+        //     currentState = {...currentSx tate,
+        //         Products : action.payload.Products.concat(Array.from({length : 20}))
+        //     }
             default:
             break;
     }
