@@ -10,8 +10,8 @@ import { productActionBinder } from "../Actions/ProductAction";
 import MenuAppBar from "../../Home/Components/AppBarComponent";
 import InfiniteScroll from "react-infinite-scroll-component";
 const Products= () => {
-  const [pageSkip, setPageSkip] = useState(0);
-  const [pageLimit, setPageLimit] = useState(20);
+  const [pageSkip, setPageSkip] = useState(-1);
+  const [pageLimit, setPageLimit] = useState(10);
   const [hasMore, setHasMore] = useState(true)
   const [products, setProducts] = useState([])
     const dispatch = useDispatch();
@@ -19,7 +19,9 @@ const Products= () => {
     // const params = useParams();
     const [params] = useSearchParams();
   useEffect(()=>{
-    dispatch(productActionBinder(params.get('category'), pageSkip, pageLimit))
+    console.log('--- in did mount');
+    setPageSkip(0);
+    dispatch(productActionBinder(params.get('category')))
   },[])
 
   const productData = useSelector((state) => {
@@ -29,13 +31,17 @@ const Products= () => {
 
   useEffect(() => {
     setProducts(productData.products)
-  })
+  }, [productData])
+  console.log("!!!productData!!!",productData)
   const fetchMoreData = () => {
     setPageSkip(pageSkip + pageLimit)
   }  
 
   useEffect(()=>{
-    dispatch(productActionBinder(params.get('category'), pageSkip, pageLimit))
+    console.log("--- on skip update --- ", pageSkip)
+    if (pageSkip != -1) {
+      dispatch(productActionBinder(params.get('category'), pageSkip, pageLimit))
+    }
   },[pageSkip])
 
   return (
@@ -48,14 +54,14 @@ const Products= () => {
         </Grid>
         
         <Grid item xs={10} md={8} lg={8}>
-          <div id="scrollableDiv"
+          <div
             >
             <InfiniteScroll
               dataLength={productData.Products.length}
               next={fetchMoreData}
               hasMore={true}
               loader={<h4>Loading...</h4>}
-              scrollableTarget="scrollableDiv"
+              // scrollableTarget="scrollableDiv"
             >
               <Grid container >
                 {productData.Products.map((Product, index) => {

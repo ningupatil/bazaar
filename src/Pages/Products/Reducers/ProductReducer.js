@@ -8,10 +8,10 @@ export const productReducer = (state=initialState, action) => {
     let currentState = state
     switch (action.type) {
         case FETCH_PRODUCTS_SUCCESS :
-            // console.log("---in reducer--- ", action.payload)
             currentState = {...currentState,
                 Products : currentState.Products.concat(action.payload.Products)
             }
+            console.log("___in productReducer fun--",currentState)
             break;
         // case FETCH_PRODUCTS_SUCCESS :
         //     currentState = {...currentSx tate,
