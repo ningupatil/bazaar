@@ -31,7 +31,6 @@ const Products= () => {
     setProducts(productData.products)
   })
   const fetchMoreData = () => {
-    console.log('---- paginating ')
     setPageSkip(pageSkip + pageLimit)
   }  
 
@@ -49,12 +48,14 @@ const Products= () => {
         </Grid>
         
         <Grid item xs={10} md={8} lg={8}>
-          <div>
+          <div id="scrollableDiv"
+            >
             <InfiniteScroll
               dataLength={productData.Products.length}
               next={fetchMoreData}
               hasMore={true}
               loader={<h4>Loading...</h4>}
+              scrollableTarget="scrollableDiv"
             >
               <Grid container >
                 {productData.Products.map((Product, index) => {
