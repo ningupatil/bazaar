@@ -1,4 +1,4 @@
-import * as React  from 'react';
+
 import AppBar from '@mui/material/AppBar';
 
   import Box from '@mui/material/Box';
@@ -10,6 +10,9 @@ import AppBar from '@mui/material/AppBar';
 import { SignUp } from '../../SignUp/Components/SignUpComponent';
 
 import ButtonComp from '../../../Common/Button';
+import { useContext, useState } from 'react';
+import ToggleButtonComponent from '../../../Common/ToggleButton';
+import { UserContext } from '../../../Context/UserContext/UserContext';
 
 
 
@@ -18,6 +21,8 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function MenuAppBar() {
 
+  const[isSignIn, setIsSignIn] = useState(true);
+  const {userDetails} = useContext(UserContext);
   
   const onSignUp = () => {
     console.log("hiiiiii")
@@ -27,6 +32,13 @@ function MenuAppBar() {
   const onSignIn = () => {
     window.location.href = "/signin"
   }
+
+  const handleProfile = () => {
+    setIsSignIn(!isSignIn)
+  }
+
+  console.log('inappbar----- userDetails ', userDetails)
+
   return (
  
     
@@ -47,8 +59,15 @@ function MenuAppBar() {
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 Bazaar
               </Typography>
-              <ButtonComp color="inherit" onButtonClick={onSignIn} buttonName={"SignIn"}  />
+             
+             {(userDetails && userDetails.id)
+             ? null
+             : <>
+             <ButtonComp color="inherit" onButtonClick={onSignIn} buttonName={"SignIn"}  />
               <ButtonComp color="inherit" onButtonClick={onSignUp} buttonName={"Signup"} />
+             </>}
+              
+              {/* <ToggleButtonComponent value= "isSignIn" selected= {handleProfile}/> */}
             </Toolbar>
           </AppBar>
         </Box>

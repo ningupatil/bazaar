@@ -23,16 +23,16 @@ export const SignUp = (props) => {
 
     const onNameChange = (event) => {
         setName(event.target.value);
-        console.log('--- event.target.value ', event.target.value);
+        // console.log('--- event.target.value ', event.target.value);
     }
 
     const onEmailChange = (event) => {
         setEmail(event.target.value);
-        console.log('--- event.target.value ', event.target.value);
+        // console.log('--- event.target.value ', event.target.value);
     }
     const onPasswordChange = (event) => {
         setPassword(event.target.value);
-        console.log('--- event.target.value ', event.target.value);
+        // console.log('--- event.target.value ', event.target.value);
     }
     const onGenderChange = (event) => {
         setGender(event.target.value);

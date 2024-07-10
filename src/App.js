@@ -1,18 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
 import Routes from './Configures/Routes'
-
-import Home from './Pages/Home/Components/HomeComponent';
 import store from './Configures/store';
 import { Provider } from 'react-redux';
- const App = () => {
+import { useState } from 'react';
+import { UserContext } from './Context/UserContext/UserContext';
+
+const App = () => {
+  const[userDetails, setUserDetails] = useState({})
   return (
     <div className="App">
-      <Provider store={store}>
-        {Routes}
-      </Provider>
-      
-      
+        <Provider store={store}>
+          <UserContext.Provider value={{ userDetails, setUserDetails }}>
+          {Routes}
+          </UserContext.Provider>
+        </Provider>
     </div>
   );
 }
