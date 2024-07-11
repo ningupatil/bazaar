@@ -7,7 +7,7 @@ import { Fragment, useContext, useEffect, useState } from "react"
 import MenuAppBar from "../../Home/Components/AppBarComponent"
 import { UserContext } from "../../../Context/UserContext/UserContext"
 import ToggleButtonComponent from "../../../Common/ToggleButton"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 
 export const SignIn = () => {
@@ -16,6 +16,8 @@ export const SignIn = () => {
     const[password, setPassword] = useState('')
     const {setUserDetails} = useContext(UserContext)
     const[isSignedInSuccess, setIsSignedInSuccess] = useState(-1)
+    // const userIsActive = useUserIsActive()
+    const navigate = useNavigate()
     const onUserIdChange =(event) => {
         setUserId(event.target.value)
     }
@@ -67,7 +69,7 @@ export const SignIn = () => {
     const closeDialogueView = () => {
         setIsSignedInSuccess(-1);
         // window.location = "/"
-        
+        navigate("/")
     }    
 
     const getDialogView = (message) => {
@@ -87,8 +89,6 @@ export const SignIn = () => {
                         </DialogContent>
                         <DialogActions>
                             <ButtonComp onButtonClick={closeDialogueView} buttonName={"Ok"} />
-                            <br></br>
-                            <Link to = "/">Save</Link>
                         </DialogActions>
                     </Dialog>
                 </Fragment>
