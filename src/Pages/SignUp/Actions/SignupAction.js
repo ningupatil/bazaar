@@ -11,7 +11,7 @@ export const signUpActionBinder = (userDetails) => {
             console.log('--apiResponse--',apiResponse)
             dispatch( {
                 type : "POST_SIGNUP_SUCCESS",
-                payload : { user: apiResponse }
+                payload : { user: apiResponse.data }
             })
         })
         .catch(() => {

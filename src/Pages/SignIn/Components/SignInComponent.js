@@ -52,11 +52,12 @@ export const SignIn = () => {
     const signinData = useSelector((state) => {
          return state.signinData
     })
+    console.log("++++signinData++++", signinData)
     useEffect(() => {
         setUserDetails(signinData.user);
         console.log("--signinData.user---",signinData.user)
         if(signinData.isSignIn) {
-            if(signinData.user.email && signinData.user.Id) {
+            if(signinData.user.email && signinData.user.id) {
                 setIsSignedInSuccess(0)
             }
             else {

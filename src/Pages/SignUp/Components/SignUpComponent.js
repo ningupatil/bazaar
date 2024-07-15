@@ -82,6 +82,7 @@ export const SignUp = (props) => {
     }, [signUpData])
     const closeDialogueView = () => {
         setIsSignupSuccess(-1);
+        
     }
     const getDialogView = (message) => {
         return <Fragment>

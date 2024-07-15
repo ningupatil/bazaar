@@ -21,10 +21,10 @@ const Cart = () => {
   const cartData = useSelector((state) => {
     return state.cartData
   });
-
-  useEffect( () => {
-    setCart(cartData.cart)
-  })
+  console.log("-----cartData-----", cartData)
+  // useEffect( () => {
+  //   setCart(cartData.cart)
+  // },[cartData])
 
   return (
     <div>
@@ -33,7 +33,7 @@ const Cart = () => {
       <Grid container>
 
         {/* {cartData.cartItems.map((cartItem,index) => { */}
-        {cartData.carts.map((cart,index) =>{
+        {cartData.carts.carts.map((cart,index) =>{
           console.log("---grid container---",cart)
           return (
             <Grid item xs={4} key={`cartItem_details_${index}`} style={{ margin: "10px" }}>
@@ -45,7 +45,7 @@ const Cart = () => {
                   <label id={`title_${index}`}>{cart.title}</label>
                 </div>
                 <div>
-                  <img src={cart.products.thumbnail} style={{ width: "100px", height: "100px" }} />
+                  {/* <img src={cart.products.thumbnail} style={{ width: "100px", height: "100px" }} /> */}
                 </div>
                 <div>
                   <label>{cart.price}</label>

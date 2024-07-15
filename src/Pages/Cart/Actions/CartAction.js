@@ -5,10 +5,11 @@ import { fetchCartAPI } from "../API/CartAPI"
 export const cartActionBinder = () => {
     return ((dispatch) => {
       fetchCartAPI()
-      .then((carts) => {
+      .then((response) => {
+        console.log(">>>>>carts<<<<<<", response)
         dispatch( {
           type : "FETCH_CARTITEMS_SUCCESS",
-          payload : {carts}
+          payload : {carts : response.data}
         })
       })
       .catch(() => {

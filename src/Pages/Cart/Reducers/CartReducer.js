@@ -9,6 +9,7 @@ export const cartReducer = (state=initialState,action) => {
             currentState = {...currentState,
                 carts : action.payload.carts
             }
+            console.log("rrrrrrrcartsrrrrr", currentState)
             break;
 
             default:
