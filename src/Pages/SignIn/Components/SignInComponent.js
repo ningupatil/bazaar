@@ -8,24 +8,64 @@ import MenuAppBar from "../../Home/Components/AppBarComponent"
 import { UserContext } from "../../../Context/UserContext/UserContext"
 import ToggleButtonComponent from "../../../Common/ToggleButton"
 import { Link, useNavigate } from "react-router-dom"
+import { isValidEmail } from "../../../Uilities/ValidationHandler"
 
 
 export const SignIn = () => {
-    const[userId, setUserId] = useState('')
+    const[userId, setUserId] = useState()
     const[email, setEmail] = useState('')
     const[password, setPassword] = useState('')
     const {setUserDetails} = useContext(UserContext)
-    const[isSignedInSuccess, setIsSignedInSuccess] = useState(-1)
+    const[isSignedInSuccess, setIsSignedInSuccess] = useState(-1);
+
+    const [userIdError, setUserIdError] = useState("");
+    const [emailIdError, setEmailIdError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+
+
     // const userIsActive = useUserIsActive()
     const navigate = useNavigate()
+
+    const validateInput = () => {
+        let validation = {
+            isUserIdValid: true,
+            isEmailValid: true,
+            isPasswordValid: true,
+        };
+        let isValid = true;
+        
+        if(!userId || userId == 0) {
+            console.log('--- user id ', userId);
+            isValid = false;
+            validation.isUserIdValid = false;
+        }
+        
+        if(!isValidEmail(email)) {
+            console.log('---email error --')
+            isValid = false;
+            validation.isEmailValid = false;
+        }
+
+        if(!password || password.length == 0) {
+            isValid = false;
+            validation.isPasswordValid = false;
+        }
+
+        validation.isValid = isValid;
+        return validation;
+    }
+
     const onUserIdChange =(event) => {
         setUserId(event.target.value)
+        setUserIdError("");
     }
     const onEmailChange = (event) => {
         setEmail(event.target.value)
+        setEmailIdError("");
     }
     const onPasswordChange = (event) => {
         setPassword(event.target.value)
+        setPasswordError("");
     }
 
     const handleClickOpen = () => {
@@ -38,24 +78,36 @@ export const SignIn = () => {
     const dispatch = useDispatch()
 
     const onSignInClick =() => {
-        console.log("---onSignInClick----")
-        let userDetails = {
-            userId : userId,
-            email : email,
-            password : password
+        const validationResult = validateInput();
+        if(validationResult.isValid) {
+            let userDetails = {
+                userId : userId,
+                email : email,
+                password : password
+            }
+    
+          
+            dispatch(signInActionBinder(userDetails))
+        } else {
+            if (!validationResult.isUserIdValid) {
+                setUserIdError("User Id is mandatory field")
+            }
+            
+            if (!validationResult.isEmailValid) {
+                setEmailIdError("Email id is mandatory field")
+            }
+            if (!validationResult.isPasswordValid) {
+                setPasswordError("Password is mandatory field")
+            }
         }
-
-      
-        dispatch(signInActionBinder(userDetails))
+        
     }
 
     const signinData = useSelector((state) => {
          return state.signinData
     })
-    console.log("++++signinData++++", signinData)
     useEffect(() => {
         setUserDetails(signinData.user);
-        console.log("--signinData.user---",signinData.user)
         if(signinData.isSignIn) {
             if(signinData.user.email && signinData.user.id) {
                 setIsSignedInSuccess(0)
@@ -95,24 +147,34 @@ export const SignIn = () => {
                 </Fragment>
     }
 
-
     return(
         <div>
             <MenuAppBar />
             <h2>amazon.in</h2>    
-            <Paper>
-                <div>User Id</div>
-                <TextFieldComp  onTextChange={onUserIdChange}/>
+            {/* <Paper> */}
+                <TextFieldComp 
+                    textType={"number"}
+                    textLabel={"User Id"}
+                    onTextChange={onUserIdChange}
+                    textError={userIdError}
+                    
+                />
                 <br></br>
-                <div>Email</div>
-                <TextFieldComp onTextChange={onEmailChange} />
+                <TextFieldComp
+                    textLabel={"Email Id"}
+                    onTextChange={onEmailChange}
+                    textError={emailIdError}
+                />
                 <br></br>
-                <div>Password</div>
-                <TextFieldComp onTextChange={onPasswordChange} />
+                <TextFieldComp
+                    textLabel={"Password"}
+                    onTextChange={onPasswordChange}
+                    textError={passwordError}
+                />
                 <br></br>
                 <ButtonComp color="inherit" onButtonClick={onSignInClick} buttonName={"SignIn"}  />
                 <br></br>
-            </Paper>
+            {/* </Paper> */}
 
             {(isSignedInSuccess == 1)
                 ? getDialogView(`You have successfully signedIn`)

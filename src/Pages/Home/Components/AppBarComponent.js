@@ -25,7 +25,6 @@ function MenuAppBar() {
   const {userDetails} = useContext(UserContext);
   
   const onSignUp = () => {
-    console.log("hiiiiii")
     window.location.href= "/signup"
   }
 
@@ -37,7 +36,6 @@ function MenuAppBar() {
     setIsSignIn(!isSignIn)
   }
 
-  console.log('inappbar----- userDetails ', userDetails)
 
   return (
  

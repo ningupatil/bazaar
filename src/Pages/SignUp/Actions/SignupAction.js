@@ -5,13 +5,13 @@ import { postSignUpAPI } from "../API/SignupAPI"
 
 export const signUpActionBinder = (userDetails) => {
     return((dispatch) => {
-        
+        console.log('--userDetails--',userDetails)
         postSignUpAPI(userDetails)
-        .then((apiResponse) => {
-            console.log('--apiResponse--',apiResponse)
+        .then((response) => {
+            console.log('--apiResponse--',response)
             dispatch( {
                 type : "POST_SIGNUP_SUCCESS",
-                payload : { user: apiResponse.data }
+                payload : { user: response }
             })
         })
         .catch(() => {

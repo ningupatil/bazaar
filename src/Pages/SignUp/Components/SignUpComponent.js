@@ -62,6 +62,7 @@ export const SignUp = (props) => {
             status: 'active',
             password: password
         }        
+        console.log("onSignUpClick", userDetails)
         //call Action
         dispatch(signUpActionBinder(userDetails))
     }
@@ -69,6 +70,7 @@ export const SignUp = (props) => {
     const signUpData = useSelector((state) => {
         return state.signUpData
        })
+       console.log("signupData", signUpData)
 
     useEffect(() => {
         if (signUpData.isSignedup) {
