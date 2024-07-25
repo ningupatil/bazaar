@@ -2,7 +2,7 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, G
 import { TextFieldComp } from "../../../Common/TextField"
 import ButtonComp from "../../../Common/Button"
 import { useDispatch, useSelector } from "react-redux"
-import { signInActionBinder } from "../Actions/SignInAction"
+import { fetchUserThunk, signInActionBinder } from "../Actions/SignInAction"
 import { Fragment, useContext, useEffect, useState } from "react"
 import MenuAppBar from "../../Home/Components/AppBarComponent"
 import { UserContext } from "../../../Context/UserContext/UserContext"
@@ -87,7 +87,7 @@ export const SignIn = () => {
             }
     
           
-            dispatch(signInActionBinder(userDetails))
+            dispatch(fetchUserThunk({ userDetails }))
         } else {
             if (!validationResult.isUserIdValid) {
                 setUserIdError("User Id is mandatory field")
@@ -106,6 +106,7 @@ export const SignIn = () => {
     const signinData = useSelector((state) => {
          return state.signinData
     })
+    console.log("signinData",signinData)
     useEffect(() => {
         setUserDetails(signinData.user);
         if(signinData.isSignIn) {
@@ -176,9 +177,9 @@ export const SignIn = () => {
                 <br></br>
             {/* </Paper> */}
 
-            {(isSignedInSuccess == 1)
+            {(isSignedInSuccess == 0)
                 ? getDialogView(`You have successfully signedIn`)
-                : (isSignedInSuccess == 0)
+                : (isSignedInSuccess == 1)
                     ? getDialogView(`Something went wrong, please try again later`)
                     : null
             }

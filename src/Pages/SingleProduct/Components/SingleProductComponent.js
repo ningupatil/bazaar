@@ -1,6 +1,6 @@
 import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
-import { singleProductActionBinder } from "../Action/SingleProductAction"
+import { fetchSingleProductThunk, singleProductActionBinder } from "../Action/SingleProductAction"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import ButtonComp from "../../../Common/Button"
@@ -14,7 +14,7 @@ const Product = (props) => {
 
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(singleProductActionBinder(params.productId))
+        dispatch(fetchSingleProductThunk({productId : params.productId}))
     },[])
 
     const singleProductData = useSelector((state) => {

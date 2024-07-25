@@ -4,7 +4,7 @@ import { Grid } from "@mui/material";
 import Card from '@mui/material/Card';
 import NavigationMenuComponent from "../../../Common/NavigationMenuComponent";
 import { useDispatch, useSelector } from "react-redux";
-import { cartActionBinder } from "../Actions/CartAction";
+import { cartActionBinder, fetchCartsThunk } from "../Actions/CartAction";
 import MenuAppBar from "../../Home/Components/AppBarComponent";
 
 const Cart = () => {
@@ -14,7 +14,7 @@ const Cart = () => {
 
   useEffect(() => {
      console.log("---in useEffect--- ")
-    dispatch(cartActionBinder())
+    dispatch(fetchCartsThunk())
 
   }, []);
 

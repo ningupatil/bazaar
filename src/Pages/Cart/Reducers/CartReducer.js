@@ -1,19 +1,36 @@
+import { createSlice } from "@reduxjs/toolkit"
+import { fetchCartsThunk } from "../Actions/CartAction"
+
 const initialState = {
     carts : []
 }
 
-export const cartReducer = (state=initialState,action) => {
-    let currentState = state
-    switch(action.type) {
-        case "FETCH_CARTITEMS_SUCCESS" :
-            currentState = {...currentState,
-                carts : action.payload.carts
-            }
-            console.log("rrrrrrrcartsrrrrr", currentState)
-            break;
+// export const cartReducer = (state=initialState,action) => {
+//     let currentState = state
+//     switch(action.type) {
+//         case "FETCH_CARTITEMS_SUCCESS" :
+//             currentState = {...currentState,
+//                 carts : action.payload.carts
+//             }
+//             console.log("rrrrrrrcartsrrrrr", currentState)
+//             break;
 
-            default:
-            break;
+//             default:
+//             break;
+//     }
+//     return currentState;
+// }
+
+const cartReducerSlice = createSlice({
+    name : "carts",
+    initialState,
+    reducers : {},
+    extraReducers : (builder) => {
+        builder.addCase(fetchCartsThunk.fulfilled, (state, action) => {
+            console.log("action",action)
+            state.carts = action.payload.data
+        })
     }
-    return currentState;
-}
+})
+
+export default cartReducerSlice.reducer

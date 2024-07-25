@@ -1,23 +1,32 @@
+import { createAsyncThunk } from "@reduxjs/toolkit"
 import { fetchCartAPI } from "../API/CartAPI"
 
 
 
-export const cartActionBinder = () => {
-    return ((dispatch) => {
-      fetchCartAPI()
-      .then((response) => {
-        console.log(">>>>>carts<<<<<<", response)
-        dispatch( {
-          type : "FETCH_CARTITEMS_SUCCESS",
-          payload : {carts : response.data}
-        })
-      })
-      .catch(() => {
-        dispatch({
-          type : "FETCH_CARTITEMS_FAIL",
-          payload : null
-        })
-      })
+// export const cartActionBinder = () => {
+//     return ((dispatch) => {
+//       fetchCartAPI()
+//       .then((response) => {
+//         console.log(">>>>>carts<<<<<<", response)
+//         dispatch( {
+//           type : "FETCH_CARTITEMS_SUCCESS",
+//           payload : {carts : response.data}
+//         })
+//       })
+//       .catch(() => {
+//         dispatch({
+//           type : "FETCH_CARTITEMS_FAIL",
+//           payload : null
+//         })
+//       })
+//     })
+//   }
+
+  export const fetchCartsThunk = createAsyncThunk("carts/fetchCartsThunk", async (data) => {
+    const carts = await fetchCartAPI()
+    console.log("carts",carts)
+    return carts
+  })
         // dispatch({
         //     type : "FETCH_CART_SUCCESS",
         //     payload : {
@@ -108,5 +117,4 @@ export const cartActionBinder = () => {
                 
         //     }
         // })
-    })
-}
+  

@@ -1,5 +1,5 @@
 import { Alert, Card, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, Paper } from "@mui/material"
-import {  signUpActionBinder } from "../Actions/SignupAction"
+import {  postUserThunk, signUpActionBinder } from "../Actions/SignupAction"
 import { useDispatch, useSelector } from "react-redux"
 import React, { useEffect, useState, Fragment } from "react"
 
@@ -64,7 +64,7 @@ export const SignUp = (props) => {
         }        
         console.log("onSignUpClick", userDetails)
         //call Action
-        dispatch(signUpActionBinder(userDetails))
+        dispatch(postUserThunk({ userDetails }))
     }
 
     const signUpData = useSelector((state) => {
@@ -111,7 +111,7 @@ export const SignUp = (props) => {
     return(
         <div>
             <MenuAppBar />
-            <h2>amazon.in</h2>
+            <h2>Bazaar</h2>
             <Grid
              container
              direction="row"

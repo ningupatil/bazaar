@@ -4,7 +4,7 @@ import React, { useState,useEffect } from "react";
 import Card from '@mui/material/Card';
 import NavigationMenuComponent from "../../../Common/NavigationMenuComponent";
 import { useDispatch, useSelector } from "react-redux";
-import { homeActionBinder } from "../Actions/HomeAction";
+import { fetchPromotedProductsThunk, homeActionBinder } from "../Actions/HomeAction";
 import MenuAppBar from "./AppBarComponent";
 
 
@@ -14,7 +14,7 @@ function Home() {
     const dispatch = useDispatch();
     useEffect(()=>{
         // console.log("---in useEffect--- ")
-        dispatch(homeActionBinder())
+        dispatch(fetchPromotedProductsThunk())
         
         // setPromotedProducts()
     },[])

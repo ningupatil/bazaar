@@ -1,3 +1,4 @@
+import { createAsyncThunk } from "@reduxjs/toolkit"
 import { fetchProductsAPI } from "../API/ProductAPI"
 import { FETCH_PRODUCTS_SUCCESS } from "../Constants/actionTypeConstant"
 
@@ -5,23 +6,23 @@ import { FETCH_PRODUCTS_SUCCESS } from "../Constants/actionTypeConstant"
 
 
 
-export const productActionBinder = (category, pageSkip, pageLimit) => {
-    return((dispatch) => {
-        // console.log('---- pageSkip, pageLimit ', pageSkip, pageLimit)
-        fetchProductsAPI(category, pageSkip, pageLimit)
-        .then((Products) => {
-            // console.log('---- Products length ', Products.length)
-            dispatch( {
-                type : FETCH_PRODUCTS_SUCCESS,
-                payload : {Products}
-            })
-        })
-        .catch(() => {
-            dispatch( {
-                type : 'FETCH_PRODUCTS_FAIL',
-                payload : null
-            })
-        })
+// export const productActionBinder = (category, pageSkip, pageLimit) => {
+//     return((dispatch) => {
+//         // console.log('---- pageSkip, pageLimit ', pageSkip, pageLimit)
+//         fetchProductsAPI(category, pageSkip, pageLimit)
+//         .then((Products) => {
+//             // console.log('---- Products length ', Products.length)
+//             dispatch( {
+//                 type : FETCH_PRODUCTS_SUCCESS,
+//                 payload : {Products}
+//             })
+//         })
+//         .catch(() => {
+//             dispatch( {
+//                 type : 'FETCH_PRODUCTS_FAIL',
+//                 payload : null
+//             })
+//         })
         // console.log("---in ProductActionBinderCallBack dispatching--- ")
         // dispatch({
         //     type: "FETCH_PRODUCTS_SUCCESS",
@@ -32,5 +33,12 @@ export const productActionBinder = (category, pageSkip, pageLimit) => {
         //           ]
         //     }
         // })
-    })
-} 
+//     })
+// } 
+
+export const fetchProductsThunk = createAsyncThunk("products/fetchProductsThunk", async (data) => {
+    console.log(" thunk - category, pageSkip, pageLimit ", data.category, data.pageSkip, data.pageLimit)  
+    const products = await fetchProductsAPI(data.category, data.pageSkip, data.pageLimit)
+    console.log("___in fetchProducts___", products)  
+    return products
+})

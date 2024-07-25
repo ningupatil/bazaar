@@ -6,7 +6,7 @@ import { Link, useParams, useSearchParams } from 'react-router-dom';
 import ProductCardComp from "./ProductCardComponent";
 import NavigationMenuComponent from "../../../Common/NavigationMenuComponent";
 import { useDispatch, useSelector } from "react-redux";
-import { productActionBinder } from "../Actions/ProductAction";
+import { fetchProducts, fetchProductsThunk, productActionBinder } from "../Actions/ProductAction";
 import MenuAppBar from "../../Home/Components/AppBarComponent";
 import InfiniteScroll from "react-infinite-scroll-component";
 const Products= () => {
@@ -21,7 +21,7 @@ const Products= () => {
   useEffect(()=>{
     console.log('--- in did mount');
     setPageSkip(0);
-    dispatch(productActionBinder(params.get('category')))
+    // dispatch(fetchProductsThunk(params.get('category', pageSkip, pageLimit)))
   },[])
 
   const productData = useSelector((state) => {
@@ -32,7 +32,7 @@ const Products= () => {
   useEffect(() => {
     setProducts(productData.products)
   }, [productData])
-  console.log("!!!productData!!!",productData)
+  // console.log("!!!productData!!!",productData)
   const fetchMoreData = () => {
     setPageSkip(pageSkip + pageLimit)
   }  
@@ -40,7 +40,7 @@ const Products= () => {
   useEffect(()=>{
     console.log("--- on skip update --- ", pageSkip)
     if (pageSkip != -1) {
-      dispatch(productActionBinder(params.get('category'), pageSkip, pageLimit))
+      dispatch(fetchProductsThunk({category : params.get('category'), pageSkip, pageLimit}))
     }
   },[pageSkip])
 
@@ -57,17 +57,17 @@ const Products= () => {
           <div
             >
             <InfiniteScroll
-              dataLength={productData.Products.length}
+              dataLength={productData.products.length}
               next={fetchMoreData}
               hasMore={true}
               loader={<h4>Loading...</h4>}
               // scrollableTarget="scrollableDiv"
             >
               <Grid container >
-                {productData.Products.map((Product, index) => {
+                {productData.products.map((product, index) => {
                   return (<Grid item xs={4} key={`product_details_${index}`} style={{ margin: "10px" }}>
                     <ProductCardComp
-                      product={Product}
+                      product={product}
                     />
                   </Grid>)
                 })}

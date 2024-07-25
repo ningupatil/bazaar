@@ -3,6 +3,7 @@ import { getAPI } from "../../../Uilities/HttpRequestHandler"
 
 export const fetchProductsAPI = async (category, pageSkip, pageLimit) => {
     // return new Promise( (resolve,reject) => {
+        console.log("___in fetchProducts___")
     const response = await getAPI(`https://dummyjson.com/products?limit=${pageLimit}&skip=${pageSkip}`)
     if (response && response.data && response.data.products) {
         if (category) {
