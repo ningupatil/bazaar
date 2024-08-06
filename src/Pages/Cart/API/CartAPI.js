@@ -11,16 +11,4 @@ export const fetchCartAPI = async () => {
     } else {
         return response
     }
-
-    // return new Promise ((resolve,reject) => {
-    //     getAPI('https://dummyjson.com/carts')
-    //     .then((response) => {
-    //         //logic
-    //         console.log("response",response)
-    //         resolve(response.carts)
-    //     })
-    //     .catch((error) => {
-    //         reject(error)
-    //     })
-    // })
 } 

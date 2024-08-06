@@ -21,6 +21,7 @@ function Home() {
     const homeData = useSelector((state) => {
         return state.homeData
     });
+    console.log("homeData",homeData)
 
     useEffect(() => {
         setPromotedProducts(homeData.promotedProducts)
@@ -40,13 +41,11 @@ function Home() {
 
             <h1>Bazaar.com</h1>
             <Grid container>
-                <Grid item md={2}>
-
-                </Grid>
+               
                 
                 {promotedProducts.map((promotedProduct,index1)=>{
                     return(
-                        <Grid item xs={4} md={4} key={`promotedProduct_details_${index1}`} style={{ margin: "10px"}}>
+                        <Grid item xs={3} md={4} key={`promotedProduct_details_${index1}`} style={{ margin: "10px"}}>
                            <Card sx = {{maxwidth:"500"}}>
                             
                                 <Grid container>

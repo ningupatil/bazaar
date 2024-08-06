@@ -18,9 +18,6 @@ export const SignUpPaperComponent = (props) => {
             
             <TextFieldComp textLabel= {"Gender"} onTextChange={props.onGenderChange} />
             <br></br>
-            {/* <div>Status</div>
-            <TextFieldComp onTextChange={props.onStatusChange} /> */}
-            <br></br>
             
             <TextFieldComp textLabel= {"Password"} onTextChange={props.onPasswordChange} />
             <br></br>

@@ -8,6 +8,7 @@ import { saveObjectInLocalStorage } from '../../../Uilities/LocalStorageHandler'
 import ButtonComp from "../../../Common/Button"
 import { SignUpPaperComponent } from "./SignupPaperComponent"
 import MenuAppBar from "../../Home/Components/AppBarComponent"
+import { useNavigate } from "react-router-dom"
 
 export const SignUp = (props) => {
     const[name,setName] = useState('')
@@ -18,7 +19,7 @@ export const SignUp = (props) => {
     const[status,setStatus] = useState('active')
     const [isSignupSuccess, setIsSignupSuccess] = useState(-1);
     const[open, setOpen] = useState('')
-
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const onNameChange = (event) => {
@@ -84,7 +85,7 @@ export const SignUp = (props) => {
     }, [signUpData])
     const closeDialogueView = () => {
         setIsSignupSuccess(-1);
-        
+        navigate('/signin')
     }
     const getDialogView = (message) => {
         return <Fragment>

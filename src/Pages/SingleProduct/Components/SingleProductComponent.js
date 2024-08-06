@@ -2,20 +2,23 @@ import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchSingleProductThunk, singleProductActionBinder } from "../Action/SingleProductAction"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import ButtonComp from "../../../Common/Button"
 import MenuAppBar from "../../Home/Components/AppBarComponent"
+import { saveObjectInLocalStorage } from "../../../Uilities/LocalStorageHandler"
 
 
 
 const Product = (props) => {
     const[product, setProduct] = useState()
     const params = useParams();
-
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(fetchSingleProductThunk({productId : params.productId}))
     },[])
+
+
 
     const singleProductData = useSelector((state) => {
         return state.singleProductData
@@ -23,7 +26,8 @@ const Product = (props) => {
     console.log("---singleProductData---",singleProductData)
 
     const onAddCart = () => {
-
+        saveObjectInLocalStorage(singleProductData)
+        navigate("/cart") 
     }
 
     return(

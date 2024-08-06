@@ -15,7 +15,7 @@ const NavigationMenuComponent = (props) => {
                 Products
                 </Link>
                 </div>
-                <div style={{ float: 'left', margin: '5px' }}>
+                <div  style={{ float: 'left', margin: '5px' }}>
                 <Link to="/cart" class="list">
                 Cart
                 </Link>

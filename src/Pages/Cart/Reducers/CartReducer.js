@@ -2,24 +2,8 @@ import { createSlice } from "@reduxjs/toolkit"
 import { fetchCartsThunk } from "../Actions/CartAction"
 
 const initialState = {
-    carts : []
+    cart : {}
 }
-
-// export const cartReducer = (state=initialState,action) => {
-//     let currentState = state
-//     switch(action.type) {
-//         case "FETCH_CARTITEMS_SUCCESS" :
-//             currentState = {...currentState,
-//                 carts : action.payload.carts
-//             }
-//             console.log("rrrrrrrcartsrrrrr", currentState)
-//             break;
-
-//             default:
-//             break;
-//     }
-//     return currentState;
-// }
 
 const cartReducerSlice = createSlice({
     name : "carts",
@@ -28,7 +12,7 @@ const cartReducerSlice = createSlice({
     extraReducers : (builder) => {
         builder.addCase(fetchCartsThunk.fulfilled, (state, action) => {
             console.log("action",action)
-            state.carts = action.payload.data
+            state.cart = action.payload.product
         })
     }
 })

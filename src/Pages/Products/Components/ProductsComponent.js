@@ -16,12 +16,12 @@ const Products= () => {
   const [products, setProducts] = useState([])
     const dispatch = useDispatch();
 
-    // const params = useParams();
+    
     const [params] = useSearchParams();
   useEffect(()=>{
     console.log('--- in did mount');
     setPageSkip(0);
-    // dispatch(fetchProductsThunk(params.get('category', pageSkip, pageLimit)))
+    
   },[])
 
   const productData = useSelector((state) => {
@@ -65,7 +65,7 @@ const Products= () => {
             >
               <Grid container >
                 {productData.products.map((product, index) => {
-                  return (<Grid item xs={4} key={`product_details_${index}`} style={{ margin: "10px" }}>
+                  return (<Grid item xs={3} key={`product_details_${index}`} style={{ margin: "10px" }}>
                     <ProductCardComp
                       product={product}
                     />

@@ -11,3 +11,7 @@ export const getFromLocalStorage= () => {
     window.localStorage.getItem("name")
     window.localStorage.getItem("Last")
 }
+
+export const getObjectFromLocalStorage = () => {
+    window.localStorage.getItem("object")
+}
