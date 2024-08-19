@@ -3,8 +3,10 @@ export const saveInLocalStorage = (key, value) => {
     window.localStorage.setItem(key, value)
 }
  
-export const saveObjectInLocalStorage = (object) => {
-    window.localStorage.setItem('object',JSON.stringify(object))
+export const saveObjectInLocalStorage = (key, item) => {
+    
+    
+    window.localStorage.setItem(key, JSON.stringify(item))
 }
 
 export const getFromLocalStorage= () => {

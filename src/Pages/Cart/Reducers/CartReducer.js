@@ -1,8 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchCartsThunk } from "../Actions/CartAction"
+import { Category, Description } from "@mui/icons-material"
 
 const initialState = {
-    cart : {}
+    cart : [
+        // {
+        //     id : "",
+        //     offer : {
+        //         offerPercentage : ""
+        //     },
+        //     product : {
+        //         id : "",
+        //         title : "",
+        //         description : "",
+        //         category : "",
+        //         price : "",
+        //     },
+        //     cartPrice : ""
+        // },
+    ]
 }
 
 const cartReducerSlice = createSlice({
@@ -12,7 +28,7 @@ const cartReducerSlice = createSlice({
     extraReducers : (builder) => {
         builder.addCase(fetchCartsThunk.fulfilled, (state, action) => {
             console.log("action",action)
-            state.cart = action.payload.product
+            state.cart = action.payload
         })
     }
 })

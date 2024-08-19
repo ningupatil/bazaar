@@ -1,6 +1,6 @@
 import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchSingleProductThunk, singleProductActionBinder } from "../Action/SingleProductAction"
+import { fetchCartProductThunk, fetchSingleProductThunk, singleProductActionBinder } from "../Action/SingleProductAction"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import ButtonComp from "../../../Common/Button"
@@ -21,13 +21,15 @@ const Product = (props) => {
 
 
     const singleProductData = useSelector((state) => {
-        return state.singleProductData
+        return state.singleProductData.product
     })
     console.log("---singleProductData---",singleProductData)
 
     const onAddCart = () => {
-        saveObjectInLocalStorage(singleProductData)
-        navigate("/cart") 
+        // saveObjectInLocalStorage(singleProductData)
+        // navigate("/cart") 
+        dispatch(fetchCartProductThunk(singleProductData))
+        navigate("/cart")
     }
 
     return(
@@ -45,12 +47,12 @@ const Product = (props) => {
                 component="img"
                 height="500"
                 width="500"
-                image={singleProductData.product.images}
+                image={singleProductData.images}
                 alt="product"
                 />
                 <CardContent>
                 <Typography variant="body2" color="text.secondary">
-                {singleProductData.product.title}
+                {singleProductData.title}
                 </Typography>
                 <ButtonComp onButtonClick={onAddCart} buttonName={"Add to cart"} />
                 </CardContent>

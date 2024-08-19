@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
 import { CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import Card from '@mui/material/Card';
 import NavigationMenuComponent from "../../../Common/NavigationMenuComponent";
 import { useDispatch, useSelector } from "react-redux";
-import { cartActionBinder, fetchCartsThunk } from "../Actions/CartAction";
+import { fetchCartsThunk } from "../Actions/CartAction";
 import MenuAppBar from "../../Home/Components/AppBarComponent";
-import { getFromLocalStorage, getObjectFromLocalStorage } from "../../../Uilities/LocalStorageHandler";
+import ButtonComp from "../../../Common/Button";
 
 const Cart = () => {
   const [cart, setCart] = useState({ cartItems: []})
@@ -15,23 +14,12 @@ const Cart = () => {
 
  
   useEffect(() => {
-    // const cart = JSON.parse(localStorage.getItem('object'))
-    // if(cart) {
-    //   setCart(cart)
-    // }
-    // console.log("cart", cart)
+    
     dispatch(fetchCartsThunk())
   },[])
 
-//   useEffect(() => {
-//     console.log("---in useEffect--- ")
-   
-
-//  }, []);
-
-
   const cartData = useSelector((state) => {
-    return state.cartData.cart
+    return state.cartData
   });
   console.log("-----cartData-----", cartData)
   useEffect( () => {
@@ -41,66 +29,37 @@ const Cart = () => {
   return (
     <div>
       <MenuAppBar />
-       <NavigationMenuComponent />
-       <Grid container>
-        <Grid item xs={2} md={2}></Grid>
-        <Grid item xs={4} md ={8}>
-        <Card sx = {{ maxWidth : 600 }}>
-          <CardMedia
-            component="img"
-            height="500"
-            image={cartData.images}
-            alt="product"
-          />
-          <CardContent>
-            <Typography variant="body2" color="darkBlack">product Name : {cartData.title}</Typography>
-            <br></br>
-            <Typography variant="body2" color="text.secondary">Category : {cartData.category}</Typography>
-            <br></br>
-            <Typography variant="body2" color="text.primary">Description : {cartData.description}</Typography>
-          </CardContent>
-        </Card>
-        </Grid>
-        <Grid item md={2}></Grid>
-       </Grid>
-      {/* <Grid container>
+      <NavigationMenuComponent />
+      <Grid container>
 
-       
-        {cartData.carts.map((cart,index) =>{
-          console.log("---grid container---",cart)
+        {cartData.cart.map((cart, index) => {
           return (
-            <Grid item xs={4} key={`cartItem_details_${index}`} style={{ margin: "10px" }}>
-              <Card>
-                <div>
-                  <Grid container>
-                    {cart.products.map((product, index1) => {
-                      return(
-                        <Grid item xs={4} key={`product_details_${index1}`} style ={{ margin : "10px"}}>
-                          <Card>
-                            <CardMedia
-                            component="img"
-                            height="190"
-                            image={product.thumbnail}
-                            alt="product"
-                            />
-                            <CardContent>
-                              <Typography variant="body2" color="text.secondary">
-                                {product.title}
-                              </Typography>
-                            </CardContent>
-                          </Card>
-                        </Grid>  
-                      )
-                    })}
-                  </Grid>
-                </div>
-              
+
+            <Grid item xs={4} md={8} key={`cart_details_${index}`} style={{ margin: "10px" }}>
+              <Card sx={{ maxWidth: 400 }}>
+
+                <CardMedia
+                  component="img"
+                  height="500"
+                  image={cart.product.images}
+                  alt="product"
+                />
+                <CardContent>
+                  <Typography variant="body2" color="darkBlack">product Id : {cart.product.id}</Typography>
+                  <Typography variant="body2" color="darkBlack">product Name : {cart.product.title}</Typography>
+
+                  <Typography variant="body2" color="text.secondary">Category : {cart.product.category}</Typography>
+                  <br></br>
+                  <Typography variant="body2" color="text.primary">Description : {cart.product.description}</Typography>
+                  <ButtonComp variant="body3" color="text.secondary">{ }</ButtonComp>
+                </CardContent>
               </Card>
-            </Grid>
+            </ Grid>
           )
         })}
-      </Grid> */}
-    </div>
+        <Grid item md={2}></Grid>
+      </Grid>
+    </div >
   )
 }
 export default Cart

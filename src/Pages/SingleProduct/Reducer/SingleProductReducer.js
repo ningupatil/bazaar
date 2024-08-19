@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchSingleProductThunk } from "../Action/SingleProductAction";
+import { fetchCartProductThunk, fetchSingleProductThunk } from "../Action/SingleProductAction";
 
 const initialState = {
-    product : {}
+    product : {},
+    cart : []
 }
 
 const singleproductReducerSlice = createSlice({
@@ -12,6 +13,9 @@ const singleproductReducerSlice = createSlice({
     extraReducers : (builder) => {
         builder.addCase(fetchSingleProductThunk.fulfilled, (state, action) => {
             state.product = action.payload
+        })
+        builder.addCase(fetchCartProductThunk.fulfilled, (state,action) => {
+            state.cart = action.payload
         })
     }
 })
