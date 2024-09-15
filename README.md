@@ -19,3 +19,7 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ## Signin / Signup Pages
 
+in this pages user can create account and signup
+also can Signin using the email and password
+
+## Cart page
